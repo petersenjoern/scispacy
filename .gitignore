@@ -1,6 +1,11 @@
 # vscode
 *.vscode
 
+# Scispacy specific
+base_model/
+ner/
+specialised_ner/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

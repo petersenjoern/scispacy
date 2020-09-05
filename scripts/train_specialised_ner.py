@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import shutil
 import json
+import pickle
 
 import argparse
 import tqdm
@@ -29,10 +30,22 @@ def train_ner(output_dir: str,
               n_iter: int = 10,
               meta_overrides: str = None):
 
+    model = "en_core_sci_lg"
     util.fix_random_seed(util.env_opt("seed", 0))
-    train_data = read_ner_from_tsv(train_data_path)
-    dev_data = read_ner_from_tsv(dev_data_path)
-    test_data = read_ner_from_tsv(test_data_path)
+
+    with Path(train_data_path).open('rb') as file:
+        train_data = pickle.load(file)
+    
+    with Path(dev_data_path).open('rb') as file:
+        dev_data = pickle.load(file)
+
+    with Path(test_data_path).open('rb') as file:
+        test_data = pickle.load(file)
+
+    # train_data = read_ner_from_tsv(train_data_path)
+    # dev_data = read_ner_from_tsv(dev_data_path)
+    # test_data = read_ner_from_tsv(test_data_path)
+
     os.makedirs(output_dir, exist_ok=True)
     if run_test:
         nlp = spacy.load(model)
