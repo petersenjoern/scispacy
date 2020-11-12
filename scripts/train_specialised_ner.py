@@ -30,7 +30,7 @@ def train_ner(output_dir: str,
               n_iter: int = 10,
               meta_overrides: str = None):
 
-    model = "en_core_sci_lg"
+    model = "en_core_sci_sm"
     util.fix_random_seed(util.env_opt("seed", 0))
 
     with Path(train_data_path).open('rb') as file:
